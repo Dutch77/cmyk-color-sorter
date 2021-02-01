@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "checkJs": true,
+    "sourceMap": true,
+    "target": "es6",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+    "baseUrl": "src",
+    "paths": {
+      "@lib/*": ["lib/*"],
+      "@models/*": ["models/*"],
+      "@plugins/*": ["plugins/*"],
+      "@routes/*": ["routes/*"],
+      "@services/*": ["services/*"],
+      "@api": ["api/index"]
+    }
+  },
+  "include": [
+    "src/script/*",
+    "types/*"
+  ],
+  "exclude": [
+  ]
+}
+
