@@ -1,6 +1,6 @@
 <template>
   <div class="cmyk-color-sorter">
-    <textarea v-model="inputText" class="w-1/2 h-96"></textarea>
+    <textarea v-model="inputText" class="w-full h-96"></textarea>
     <div v-for="color in colors"
          :style="`background-color: #${color.hex}`"
          class="w-3 h-3 inline-block"
@@ -14,14 +14,16 @@
 </template>
 
 <script lang="ts">
-interface CMYKColor {
+import {generateCommand} from "./GenerateSvg";
+
+export interface CMYKColor {
   C: number,
   M: number,
   Y: number,
   K: number,
 }
 
-interface RGBColor {
+export interface RGBColor {
   R: number,
   G: number,
   B: number,
@@ -297,8 +299,15 @@ C98M59Y0K0.jpg
       }
     })
 
+    // const outputText = computed(() => {
+    //   return join(map(colors.value, (color, index) => `mv ${color.fileName} ${index + 1}_${color.fileName.trim()}`), `\n`);
+    // })
+
     const outputText = computed(() => {
-      return join(map(colors.value, (color, index) => `mv ${color.fileName} ${index + 1}_${color.fileName.trim()}`), `\n`);
+      const patchName = (fileName: string, index: number) => {
+        return `${index}_${fileName.replace('.jpg', '.svg')}`
+      }
+      return join(map(colors.value, (color, index) => generateCommand(color.cmykColor, color.rgbColor, patchName(color.fileName, index))), `\n`);
     })
 
     return {
